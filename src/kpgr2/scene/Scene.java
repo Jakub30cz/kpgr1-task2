@@ -56,7 +56,7 @@ public class Scene {
         objects.add(new CubicCurve("Bezier", Cubic.BEZIER, bezier, 0xFF4040));
         objects.add(new CubicCurve("Ferguson", Cubic.FERGUSON, ferguson, 0x40FF40));
         objects.add(new CubicCurve("Coons", Cubic.COONS, coons, 0x4080FF));
-        objects.add(new VivianiCurve("Viviani", 0.6, 0xFFFF40));
+        objects.add(new VivianiCurve("Viviani", 0.6, 0xFF9040));
         objects.add(new ConicalSpiral("Conical spiral", 0.5, 1.0, 3, 0xFF40FF));
         objects.add(new BicubicSurface("Bicubic surface", BicubicSurface.defaultControlPoints(), 0x40FFFF));
 

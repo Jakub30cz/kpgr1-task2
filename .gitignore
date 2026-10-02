@@ -1,0 +1,8 @@
+bin/
+out/
+.cache/
+*.class
+.idea/
+*.iml
+.DS_Store
+docs/plans/

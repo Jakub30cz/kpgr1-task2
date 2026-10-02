@@ -100,4 +100,22 @@ class SceneTest {
         assertEquals(0, s.getActiveIndex());
         assertNotNull(s.getController());
     }
+
+    private static double rgbDistance(int a, int b) {
+        int dr = ((a >> 16) & 0xFF) - ((b >> 16) & 0xFF);
+        int dg = ((a >> 8) & 0xFF) - ((b >> 8) & 0xFF);
+        int db = (a & 0xFF) - (b & 0xFF);
+        return Math.sqrt(dr * dr + dg * dg + db * db);
+    }
+
+    @Test
+    void objectColorsAreDistinctFromActiveYellowAndAxisColors() {
+        int[] reserved = {0xFFFF00, 0xFF0000, 0x00FF00, 0x0000FF};
+        for (Solid o : new Scene().getObjects()) {
+            for (int r : reserved) {
+                assertTrue(rgbDistance(o.getColor(), r) > 80,
+                        o.getName() + " color too close to " + Integer.toHexString(r));
+            }
+        }
+    }
 }

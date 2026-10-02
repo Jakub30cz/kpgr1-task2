@@ -65,6 +65,7 @@ public class ViewPanel extends JPanel {
     public ViewPanel() {
         setPreferredSize(new Dimension(900, 650));
         setFocusable(true);
+        setFocusTraversalKeysEnabled(false); // let Tab reach keyPressed instead of moving focus
         setBackground(Color.BLACK);
         resizeRaster();
         addComponentListener(new ComponentAdapter() {

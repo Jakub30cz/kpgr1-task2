@@ -126,4 +126,67 @@ class TransformControllerTest {
             }
         }
     }
+
+    private static Vec3D world(Solid s, int vertex) {
+        return s.getVertices().get(vertex).mul(s.getModel()).dehomog();
+    }
+
+    @Test
+    void localScaleScalesVerticesAboutObjectOriginAlongOneAxisOnly() {
+        Solid s = new Box();
+        s.setModel(new Mat4Transl(5, -2, 1));
+        TransformController c = new TransformController();
+        c.setMode(TransformController.Mode.SCALE);
+        c.setAxis(TransformController.Axis.X);
+        c.apply(s, 1);
+        // object-space (3,1,0) -> (3.15,1,0); only x is scaled, then translated by (5,-2,1)
+        assertVec(new Vec3D(8.15, -1, 1), world(s, 1));
+        assertVec(new Vec3D(6.05, -1, 1), world(s, 0));
+        assertVec(new Vec3D(6.05, 1, 1), world(s, 2));
+    }
+
+    @Test
+    void localScaleFollowsRotatedAxes() {
+        Solid s = new Box();
+        s.setModel(new Mat4RotZ(Math.PI / 2));
+        TransformController c = new TransformController();
+        c.setMode(TransformController.Mode.SCALE);
+        c.setAxis(TransformController.Axis.X);
+        c.apply(s, 1);
+        // local x is world y after the 90 degree rotation: (3,1,0) -> (3.15,1,0) -> (-1,3.15,0)
+        assertVec(new Vec3D(-1, 3.15, 0), world(s, 1));
+    }
+
+    @Test
+    void globalScaleIsNonUniformAboutWorldCenterPivot() {
+        Solid s = new Box();
+        s.setModel(new Mat4Transl(5, -2, 1));
+        // world center is (7, 0, 1); world vertex 1 is (8, -1, 1)
+        TransformController c = new TransformController();
+        c.toggleLocal();
+        c.setMode(TransformController.Mode.SCALE);
+        c.setAxis(TransformController.Axis.Y);
+        c.apply(s, 1);
+        assertVec(new Vec3D(8, -1.05, 1), world(s, 1));   // 1 unit below the pivot -> 1.05 below
+        assertVec(new Vec3D(8, 1.05, 1), world(s, 3));    // 1 unit above the pivot -> 1.05 above
+        assertVec(new Vec3D(6, -1.05, 1), world(s, 0));   // x and z unchanged
+        assertVec(new Vec3D(7, 0, 1), s.getWorldCenter());
+    }
+
+    @Test
+    void globalScaleAlongWorldAxisIgnoresObjectRotation() {
+        Solid s = new Box();
+        s.setModel(new Mat4RotZ(Math.PI / 2).mul(new Mat4Transl(5, -2, 1)));
+        Vec3D center = s.getWorldCenter();
+        Vec3D v = world(s, 1);
+        TransformController c = new TransformController();
+        c.toggleLocal();
+        c.setMode(TransformController.Mode.SCALE);
+        c.setAxis(TransformController.Axis.X);
+        c.apply(s, 1);
+        Vec3D after = world(s, 1);
+        assertEquals(center.x() + (v.x() - center.x()) * 1.05, after.x(), EPS);
+        assertEquals(v.y(), after.y(), EPS);
+        assertEquals(v.z(), after.z(), EPS);
+    }
 }

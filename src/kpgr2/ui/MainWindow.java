@@ -26,6 +26,7 @@ public class MainWindow extends JFrame {
         Scene scene = view.getScene();
 
         JSlider slider = new JSlider(SEGMENTS_MIN, SEGMENTS_MAX, SEGMENTS_DEFAULT);
+        slider.setFocusable(false); // keyboard focus always stays on the view, even after a plain click
         scene.setSegments(SEGMENTS_DEFAULT);
         slider.addChangeListener(e -> {
             scene.setSegments(slider.getValue());

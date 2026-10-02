@@ -60,7 +60,9 @@ public class Scene {
         objects.add(new ConicalSpiral("Conical spiral", 0.5, 1.0, 3, 0xFF40FF));
         objects.add(new BicubicSurface("Bicubic surface", BicubicSurface.defaultControlPoints(), 0x40FFFF));
 
-        for (int i = 0; i < objects.size(); i++) objects.get(i).setModel(gridModel(i));
+        for (int i = 0; i < objects.size(); i++) {
+            if (!(objects.get(i) instanceof CubicCurve)) objects.get(i).setModel(gridModel(i));
+        }
         Mat4 octModel = octahedron.getModel();
         for (Solid o : objects) if (o instanceof CubicCurve) o.setModel(octModel);
     }

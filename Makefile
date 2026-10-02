@@ -1,3 +1,5 @@
+.PHONY: test run
+
 test:
 	./run-tests.sh
 

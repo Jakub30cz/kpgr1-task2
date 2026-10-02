@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -118,6 +120,13 @@ public class ViewPanel extends JPanel {
                 held.remove(e.getKeyCode());
             }
         });
+        // a key released while another component/window has focus never reaches us, so drop held keys
+        addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                held.clear();
+            }
+        });
         Timer timer = new Timer(FRAME_MS, e -> applyHeldKeys());
         timer.start();
     }
@@ -125,6 +134,9 @@ public class ViewPanel extends JPanel {
     public Scene getScene() { return scene; }
 
     public boolean isPerspective() { return perspective; }
+
+    /** Number of movement keys currently considered held. */
+    int heldKeyCount() { return held.size(); }
 
     public Camera getCamera() { return camera; }
 

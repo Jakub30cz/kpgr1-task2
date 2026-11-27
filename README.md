@@ -106,4 +106,6 @@ implementovali AI agenti metodou TDD (nejdřív selhávající test, poté imple
 Výsledek procházela kontrola kódu (review) a zjednodušení a pro každou úlohu i celá sada
 testů. Rasterizační kód (Bresenham) vychází z mého předchozího úkolu KPGR1 (úkol 1).
 AI tedy napsala většinu zdrojového kódu a testů; návrh, rozhodnutí a závěrečné ověření
-(spuštění a vyzkoušení aplikace) jsou moje. README bylo rovněž vygenerováno s pomocí AI.
+(spuštění a vyzkoušení aplikace) jsou moje. README bylo rovněž vygenerováno s pomocí AI
+a AI předvyplnila i hodnoticí tabulku v `doc/`, kterou jsem zkontroloval proti programu.
+Použití AI uvádím v souladu s pokynem prorektora UHK č. 7/2026 (účel, rozsah, ověření).

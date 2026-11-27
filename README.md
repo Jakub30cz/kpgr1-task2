@@ -1,5 +1,7 @@
 # KPGR1 – úkol 2: drátěný model 3D těles, transformace, kamera a projekce
 
+Autor: Jakub Jüthner
+
 Interaktivní aplikace (Java 25, čisté Swing, bez externích knihoven), která vykresluje
 3D tělesa jako drátěné modely. Veškerá geometrie se zobrazuje vlastním potrubím
 (model, pohled, projekce, ořez, viewport) a čáry se rasterizují vlastním Bresenhamovým
@@ -49,7 +51,7 @@ model osmistěnu); jejich koncové body leží ve vrcholech osmistěnu. Přesnos
 | LMB click (posun < 3 px) | výběr nejbližšího objektu |
 | W / S, A / D | kamera dopředu/dozadu, vlevo/vpravo |
 | Shift / Ctrl | kamera nahoru / dolů |
-| Q / E | náklon kamery (roll) vlevo / vpravo |
+| Q / E | natočení kamery doleva / doprava (yaw) |
 | Tab | výběr dalšího objektu |
 | T / R / F | režim: posun (translate) / rotace (rotate) / měřítko (scale) |
 | X / Y / Z | osa transformace |

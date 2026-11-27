@@ -46,7 +46,7 @@ public class ViewPanel extends JPanel {
     private static final double PICK_RADIUS_PX = 6;
     private static final double MOUSE_SENSITIVITY = 0.005;
     private static final double MOVE_SPEED = 0.15;
-    private static final double ROLL_SPEED = Math.toRadians(1.5);
+    private static final double TURN_SPEED = Math.toRadians(1.5);
     private static final int FRAME_MS = 16;
 
     private final Scene scene = new Scene();
@@ -229,8 +229,9 @@ public class ViewPanel extends JPanel {
         if (held.contains(KeyEvent.VK_A)) { camera.moveRight(-MOVE_SPEED); moved = true; }
         if (held.contains(KeyEvent.VK_SHIFT)) { camera.moveUp(MOVE_SPEED); moved = true; }
         if (held.contains(KeyEvent.VK_CONTROL)) { camera.moveUp(-MOVE_SPEED); moved = true; }
-        if (held.contains(KeyEvent.VK_E)) { camera.roll(ROLL_SPEED); moved = true; }
-        if (held.contains(KeyEvent.VK_Q)) { camera.roll(-ROLL_SPEED); moved = true; }
+        // Q / E turn the camera left / right (yaw); a positive yaw is a left turn.
+        if (held.contains(KeyEvent.VK_Q)) { camera.yaw(TURN_SPEED); moved = true; }
+        if (held.contains(KeyEvent.VK_E)) { camera.yaw(-TURN_SPEED); moved = true; }
         if (moved) changed();
     }
 }
